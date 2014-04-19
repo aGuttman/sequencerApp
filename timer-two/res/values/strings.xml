@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">timer-two</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="timezero">0:00</string>
+    <string name="beep">Beep!</string>
+	<string name="plusone">+</string>
+	<string name="minusone">-</string>
+	<string name="startstop">Start/Stop</string>
+	<string name="reset">Reset</string>
+</resources>
