@@ -25,7 +25,7 @@ public final class R {
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f090000;
-        public static final int action_settings=0x7f09002f;
+        public static final int action_settings=0x7f090030;
         public static final int button1=0x7f09001d;
         public static final int button10=0x7f090029;
         public static final int button11=0x7f090022;
@@ -69,6 +69,7 @@ public final class R {
         public static final int button5=0x7f09002b;
         public static final int button6=0x7f09002d;
         public static final int button7=0x7f09002c;
+        public static final int button8=0x7f09002f;
         public static final int button9=0x7f090021;
         public static final int textView1=0x7f09002a;
         public static final int textView2=0x7f09002e;

@@ -1,16 +1,19 @@
 package com.example.timer_two;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
-import android.view.WindowManager;
+//import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -26,7 +29,7 @@ public class MainActivity extends Activity {
 	private int count = 0;
 	private TimerTask timerTask;
 	private TimerTask move;
-	private SoundPool sp = new SoundPool (3, AudioManager.STREAM_MUSIC, 0);
+	private SoundPool sp = new SoundPool (10, AudioManager.STREAM_MUSIC, 0);
 	TextView textView;
 	TextView perView;
 	int sound1;
@@ -40,9 +43,31 @@ public class MainActivity extends Activity {
 	int soundBlank;
 	String out = "";
 	String pos = "";
+	MediaRecorder myRecorder;
+	String outputFile = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Recording.3gpp";
+
+		myRecorder = new MediaRecorder();
+	    myRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+	    myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+	    myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+	    myRecorder.setOutputFile(outputFile);
+	    
+		try {
+			myRecorder.prepare();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -66,7 +91,8 @@ public class MainActivity extends Activity {
 		sound2 = sp.load(getApplicationContext(), R.raw.tone_2, 1);
 		sound3 = sp.load(getApplicationContext(), R.raw.tone_3, 1);
 		sound4 = sp.load(getApplicationContext(), R.raw.tone_4, 1);
-		sound5 = sp.load(getApplicationContext(), R.raw.tone_5, 1);
+		//sound5 = sp.load(getApplicationContext(), R.raw.tone_5, 1);
+		sound5 = sp.load(outputFile, 1);
 //		sound6 = sp.load(getApplicationContext(), R.raw.tone_6, 1);
 //		sound7 = sp.load(getApplicationContext(), R.raw.tone_7, 1);
 //		sound8 = sp.load(getApplicationContext(), R.raw.tone_8, 1);
@@ -135,8 +161,8 @@ public class MainActivity extends Activity {
 			}
 		};
 		
-		timer.schedule(timerTask,0,per);
-		timer.schedule(move,50,per/2);
+		timer.schedule(timerTask,per,per);
+		timer.schedule(move,per,per/2);
 	}
 	
 	public void updatePos(){
@@ -281,5 +307,15 @@ public class MainActivity extends Activity {
 			timer = null;
 			makeTimer();
 		}
+	}
+	
+	public void record(View v) throws IllegalStateException, IOException, InterruptedException{
+		
+		//myRecorder.prepare();
+		myRecorder.start();
+		Thread.sleep(2000);
+		myRecorder.stop();
+		sound5 = sp.load(outputFile, 1);
+		
 	}
 }

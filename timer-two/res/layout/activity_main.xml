@@ -528,4 +528,15 @@
         android:text="+"
         android:onClick="plus" />
 
+    <Button
+        android:id="@+id/button8"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button45"
+        android:layout_alignLeft="@+id/button7"
+        android:layout_marginBottom="19dp"
+        android:text="rec"
+        android:onClick = "record" />
+
 </RelativeLayout>
